@@ -1,0 +1,19 @@
+#m_name{
+    width: 200px;
+    height: 30px;
+    margin-left: 40%;
+}
+#img{
+    width: 300px;
+     margin: 10px;
+}
+#cont{
+    
+    display: flex;
+   
+}
+h1{
+    text-align: center;
+    color: rgb(0, 4, 255);
+    font-weight: 900;
+}

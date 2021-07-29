@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="movie-api-fetch.css">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" placeholder="search by movie name" id="m_name">
+    <button onclick="movie_data()">search</button>
+    <h1>Type A Movie Name To Get The Details</h1>
+    <div id="cont">
+         
+        <div id="img" ></div>
+        <div id="about"></div>
+    </div>
+   
+</body>
+</html>
+ <script>
+     
+     async function movie_data(){
+         try{
+         
+         //let cont = document.getElementById("cont").childNodes.innerHTML = nul
+         let imge = document.getElementById("img").innerHTML = null
+         let aboutt = document.getElementById("about").innerHTML = null
+        let  m_name = document.getElementById("m_name").value;
+        let img = document.getElementById("img")
+        let about = document.getElementById("about")
+        
+        let res = await fetch(`http://www.omdbapi.com/?t= ${m_name} &apikey=30ea87ac`)
+        
+        let data = await res.json()
+        console.log(data)
+        let {Poster ,Ratings,Released,Language,Title,Runtime} = data
+        let image = document.createElement("img")
+        image.src = Poster
+        img.append(image)
+        let h3 =  document.createElement("h3")
+        let year = document.createElement("h4")
+
+        h3.innerHTML = `Movie Name = ${Title}`
+        year.innerHTML= `Released in ${Released}`
+
+        let div = document.createElement("div")
+        Ratings.forEach(({Source,Value}) => {
+            let p = document.createElement("p")
+           
+           
+            p.innerHTML = `${Source}-${Value}`
+          // console.log(Source,Value);
+          div.append(p);
+            
+        });
+        let p2 = document.createElement("p")
+          let l =  Language.split(" ");
+          p2.innerHTML = `Available in - ${l[0]} ${l[1]}`
+          let p3 = document.createElement("p")
+          p3.innerHTML=`Runtime - ${Runtime}`
+           
+          
+       
+       about.append(h3,year,div,p2,p3)
+    }
+     catch(err){
+            let cont = document.getElementById("img");
+           
+            let img = document.createElement("img")
+            img.src = "https://media4.giphy.com/media/26uf6qaxqHpYXgjWU/200.gif"
+            cont.append(img)
+     }
+    
+  
+    
+    
+      
+
+     }
+    
+ </script>
